@@ -1,110 +1,72 @@
-# MiniMax API 装饰器
+# 智能任务链装饰器
 
-这是一个基于 MiniMax API 的 Python 装饰器，可以根据函数的文档字符串自动生成函数实现。
+一个Python装饰器，能够将自然语言描述的任务自动转换为可执行代码，并智能分解复杂任务。
 
-## 功能特性
+## 特性
 
-- **自动函数生成**：根据函数名和文档字符串，AI 自动实现函数功能
-- **智能清理**：自动移除 API 响应中的思考过程标记
-- **多种任务支持**：支持计算、翻译、文本生成、情感分析等多种任务
-- **简单易用**：只需添加装饰器和文档字符串即可
+- 🧠 **智能复杂度分析** - 自动评估任务复杂程度
+- 🔄 **自动任务分解** - 复杂任务分解为简单步骤链
+- 📝 **自然语言描述** - 直接在装饰器中写任务描述
+- ⚡ **智能执行策略** - 简单任务直接执行，复杂任务分步执行
 
 ## 使用方法
 
-### 1. 基础使用
-
 ```python
-from minimax_decorator import auto_generate
+from enhanced_smart_decompose import smart_decompose
 
-@auto_generate
-def your_function(param1, param2):
-    """这里写你想要实现的功能描述"""
+# 简单任务 - 直接执行
+@smart_decompose("查询当前系统时间")
+def get_time():
     pass
 
-# 调用函数
-result = your_function("参数1", "参数2")
-print(result)
+# 复杂任务 - 自动分解执行
+@smart_decompose("把当前的ip地址进行求和，根据.进行分开")
+def process_ip():
+    pass
+
+# 执行
+time_result = get_time()
+ip_result = process_ip()
 ```
 
-### 2. 示例函数
+## 工作原理
 
-#### 数学计算
-```python
-@auto_generate
-def calculate_prime_factors(n):
-    """计算n的所有质因数"""
-    pass
+1. **复杂度分析** - 分析任务描述中的关键词、连接词、动作数量
+2. **执行策略选择** - 复杂度低于阈值直接执行，否则分解执行
+3. **智能分解** - 根据任务类型选择合适的分解策略
+4. **链式执行** - 按步骤顺序执行，传递中间结果
 
-result = calculate_prime_factors(60)
-# 输出：[2, 2, 3, 5]
+## 示例效果
+
+```bash
+🔍 智能分解分析器
+📝 函数: process_ip
+📋 任务: 把当前的ip地址进行求和，根据.进行分开
+🧮 复杂度分析: 评分: 2, 阈值: 3
+✅ 复杂度 2 < 3, 直接执行模式
+🔄 执行任务: 把当前的ip地址进行求和，根据.进行分开
+✅ 执行完成: IP地址各段求和: 461
 ```
 
-#### 文本处理
-```python
-@auto_generate
-def extract_keywords(text, count):
-    """从文本中提取指定数量的关键词"""
-    pass
+## 自定义配置
 
-keywords = extract_keywords("人工智能技术发展迅速...", 5)
+```python
+# 自定义复杂度阈值
+@smart_decompose("处理数据", complexity_threshold=1)
+def custom_task():
+    pass
 ```
 
-#### 创意生成
-```python
-@auto_generate
-def generate_company_name(industry, style):
-    """为指定行业生成具有特定风格的公司名称"""
-    pass
+## 核心文件
 
-name = generate_company_name("科技", "现代简洁")
-```
+- `enhanced_smart_decompose.py` - 完整实现，包含测试用例
 
-## 配置说明
+## 运行测试
 
-装饰器使用预配置的 MiniMax API：
-- API地址：https://api.minimaxi.com/v1/chat/completions
-- 模型：minimax-m2
-- API密钥：已预配置
-
-## 测试结果
-
-运行 `python minimax_decorator.py` 可以看到以下测试结果：
-
-- ✅ 计算阶乘：6! = 720
-- ✅ 文本翻译：英文转中文
-- ✅ 诗歌生成：生成现代诗
-- ✅ 情感分析：识别负面情感
-- ✅ 斐波那契数列：第10项 = 55
-- ✅ 文本摘要：长文本压缩
-
-## 注意事项
-
-1. **网络连接**：需要稳定的网络连接访问 MiniMax API
-2. **API限制**：遵守 MiniMax API 的使用限制和配额
-3. **响应时间**：API 调用可能需要几秒钟时间
-4. **错误处理**：装饰器包含基本的错误处理机制
-
-## 扩展使用
-
-你可以根据需要创建更多功能的装饰器函数：
-
-```python
-@auto_generate
-def analyze_code_complexity(code):
-    """分析代码的时间复杂度和空间复杂度"""
-    pass
-
-@auto_generate
-def generate_sql_query(table_name, conditions):
-    """根据条件生成SQL查询语句"""
-    pass
-
-@auto_generate
-def convert_units(value, from_unit, to_unit):
-    """单位转换，支持长度、重量、温度等"""
-    pass
+```bash
+python enhanced_smart_decompose.py
 ```
 
 ## 许可证
 
-此项目仅供学习和测试使用。
+MIT License
